@@ -1,0 +1,41 @@
+{% extends 'airport/base.html' %}
+
+{% block title %}Shortest Duration - Task 3{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-info text-white">
+        <h2 class="mb-0">Task 3: Airport with Shortest Duration</h2>
+    </div>
+    <div class="card-body">
+        {% if error %}
+            <div class="alert alert-info">
+                <strong>No Data:</strong> {{ error }}
+            </div>
+            <p>Please add some routes first using the <a href="{% url 'add_route' %}">Add Route</a> page.</p>
+        {% else %}
+            <div class="alert alert-info">
+                <h5>Result:</h5>
+                <p class="mb-1"><strong>Airport:</strong> {{ airport.name }}</p>
+                <p class="mb-1"><strong>Duration:</strong> {{ duration }} minutes</p>
+                <p class="mb-0"><strong>Route:</strong> {{ route.parent.name }} → {{ route.child.name }} ({{ route.get_position_display }})</p>
+            </div>
+            
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h6>Details:</h6>
+                    <ul class="mb-0">
+                        <li><strong>Airport ID:</strong> {{ airport.id }}</li>
+                        <li><strong>Minimum Duration:</strong> {{ duration }} minutes</li>
+                        <li><strong>Parent Airport:</strong> {{ route.parent.name }}</li>
+                        <li><strong>Position:</strong> {{ route.get_position_display }}</li>
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        
+        <hr>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+{% endblock %}

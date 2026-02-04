@@ -1,0 +1,61 @@
+{% extends 'airport/base.html' %}
+
+{% block title %}Search Route - Task 1{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-success text-white">
+        <h2 class="mb-0">Task 1: Find Last Reachable Airport Node</h2>
+    </div>
+    <div class="card-body">
+        <p class="text-muted">Select a starting airport and direction (Left or Right). The system will continuously traverse connected airport nodes only in the selected direction until no further node exists.</p>
+        
+        <form method="post" novalidate>
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label for="{{ form.airport.id_for_label }}" class="form-label">
+                    {{ form.airport.label }}
+                </label>
+                {{ form.airport }}
+                {% if form.airport.errors %}
+                    <div class="text-danger small">{{ form.airport.errors }}</div>
+                {% endif %}
+                {% if form.airport.help_text %}
+                    <div class="form-text">{{ form.airport.help_text }}</div>
+                {% endif %}
+            </div>
+            
+            <div class="mb-3">
+                <label for="{{ form.direction.id_for_label }}" class="form-label">
+                    {{ form.direction.label }}
+                </label>
+                {{ form.direction }}
+                {% if form.direction.errors %}
+                    <div class="text-danger small">{{ form.direction.errors }}</div>
+                {% endif %}
+                {% if form.direction.help_text %}
+                    <div class="form-text">{{ form.direction.help_text }}</div>
+                {% endif %}
+            </div>
+            
+            <button type="submit" class="btn btn-success">Search</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+        </form>
+        
+        {% if last_airport %}
+        <hr>
+        <div class="alert alert-success">
+            <h5>Result:</h5>
+            <p class="mb-1"><strong>Last Reachable Airport:</strong> {{ last_airport.name }}</p>
+            <p class="mb-1"><strong>Direction:</strong> {{ direction_display }}</p>
+            {% if path|length > 1 %}
+            <p class="mb-0"><strong>Path Traversed:</strong> {{ path|join:" → " }}</p>
+            {% else %}
+            <p class="mb-0"><strong>Note:</strong> No routes found in {{ direction_display }} direction from {{ path.0 }}.</p>
+            {% endif %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

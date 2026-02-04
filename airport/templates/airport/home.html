@@ -1,0 +1,59 @@
+{% extends 'airport/base.html' %}
+
+{% block title %}Home - Flight Routes Management{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h2 class="mb-0">Flight Routes Management System</h2>
+    </div>
+    <div class="card-body">
+        <p class="lead">Welcome to the Flight Routes Management System. This system allows you to manage airport routes where each airport node can be connected to another airport in a left or right direction.</p>
+        
+        <hr>
+        
+        <h4>Features:</h4>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <div class="card border-primary">
+                    <div class="card-body">
+                        <h5 class="card-title">Add Airport Route</h5>
+                        <p class="card-text">Create a new route between airports with parent node, child node, position (Left/Right), and duration.</p>
+                        <a href="{% url 'add_route' %}" class="btn btn-primary">Add Route</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+                <div class="card border-success">
+                    <div class="card-body">
+                        <h5 class="card-title">Search Route (Task 1)</h5>
+                        <p class="card-text">Find the last reachable airport node by selecting a starting airport and direction (Left or Right).</p>
+                        <a href="{% url 'search_route' %}" class="btn btn-success">Search Route</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+                <div class="card border-warning">
+                    <div class="card-body">
+                        <h5 class="card-title">Longest Duration (Task 2)</h5>
+                        <p class="card-text">Find the airport node with the maximum duration value.</p>
+                        <a href="{% url 'longest_duration' %}" class="btn btn-warning">View Longest</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+                <div class="card border-info">
+                    <div class="card-body">
+                        <h5 class="card-title">Shortest Duration (Task 3)</h5>
+                        <p class="card-text">Find the airport node with the minimum duration value across all routes.</p>
+                        <a href="{% url 'shortest_duration' %}" class="btn btn-info">View Shortest</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
